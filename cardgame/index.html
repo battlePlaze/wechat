@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width initial-scale=1 user-scalable=no" />
+		<meta charset="UTF-8">
+		<title>翻拍游戏</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: "黑体";
+			}
+			
+			.container {
+				width: 100px;
+				height: 150px;
+				border: 2px solid orange;
+				transition: transform 2s;
+				float: left;
+				border-radius: 15px;
+				margin: 3px;
+				overflow: hidden;
+			}
+			.con {
+				width: 100px;
+				height: 150px;
+				border: 2px solid orange;
+				transition: transform 2s;
+				float: left;
+				border-radius: 15px;
+				margin: 3px;
+				overflow: hidden;
+			}
+			
+			.up {
+				width: 100px;
+				height: 150px;
+				background: lightgoldenrodyellow url(img/back002_03.jpg) no-repeat center;
+				background-size: 100% 100%;
+				position: absolute;
+				display: none;
+				font-size: 80px;
+				text-align: center;
+				line-height: 150px;
+				border-radius: 15px;
+			}
+			
+			.down {
+				font-size: 20px;
+				width: 100px;
+				height: 150px;
+				background: lightgoldenrodyellow;
+				position: absolute;
+				text-align: center;
+				line-height: 150px;
+				display: block;
+				color: mediumvioletred;
+				font-weight: 900;
+				border-radius: 15px;
+			}
+			
+			.bord {
+				width: 340px;
+				height: 550px;
+				border: 10px dashed brown;
+				padding:10px 0px;
+				margin: 0 auto;
+				position: relative;
+				background: url(img/back_01_03.jpg);
+				background-size: 100% 100%;
+			}
+			
+			.btn-container {
+				width: 330px;
+				height: 50px;
+				text-align: center;
+				vertical-align: center;
+			}
+			
+			#btn {
+				width: 150px;
+				height: 40px;
+				line-height: 40px;
+				color: white;
+				font-size: 18px;
+				font-weight: 900;
+				background: orangered;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="bord">
+			<div class="btn-container">
+				<input type="button" id="btn" value="开始" />
+			</div>
+			<div class="container">
+				<div class="down">一等奖</div>
+				<div class="up"></div>
+			</div>
+			<div class="container">
+				<div class="down">二等奖</div>
+				<div class="up"></div>
+			</div>
+			<div class="container">
+				<div class="down">三等奖</div>
+				<div class="up"></div>
+			</div>
+			<div class="container">
+				<div class="down">四等奖</div>
+				<div class="up"></div>
+			</div>
+			<div class="container">
+				<div class="down">很遗憾！</div>
+				<div class="up"></div>
+			</div>
+			<div class="container">
+				<div class="down">五等奖</div>
+				<div class="up"></div>
+			</div>
+			<div class="container">
+				<div class="down">六等奖</div>
+				<div class="up"></div>
+			</div>
+			<div class="container">
+				<div class="down">七等奖</div>
+				<div class="up"></div>
+			</div>
+			<div class="container">
+				<div class="down">八等奖</div>
+				<div class="up"></div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				$("#btn").on("click", function() {
+					$(".container").addClass("container").css({
+						"position": "absolute",
+						"top": "190px",
+						"left": "120px",
+					});
+					$(".down").hide("slow").css({
+						"-webkit-transform": "rotateX(180deg)"
+					});
+					$(".up").show("slow")
+					setTimeout(function() {
+						$(".container").css({
+							"position": "relative",
+							"top": "0",
+							"left": "0",
+							"-webkit-transform": "rotateX(-720deg)"
+						});
+					}, 1000);
+					reset();
+				});
+				//抽奖
+				function roate() {
+					$(".container").bind("click", function(evt) {
+//						var e = evt || event;
+//						e.stopPropagation() || e.cancelBubble;
+						$(".container").unbind();
+						var that = $(this);
+						that.css({
+							"-webkit-transform": "rotateX(180deg)"
+						});
+						that.find(".up").hide();
+						
+						setTimeout(function() {//控制奖项
+//							if(that.find(".down").html()=="一等奖" || that.find(".down").html()=="二等奖"){
+//								that.find(".down").html("很遗憾！").show();
+//							}
+						
+//							if(that.find(".down").html()!="八等奖"){//只有八等奖
+//								that.find(".down").html("很遗憾！").show();
+//							}
+							that.find(".down").show();
+							
+						}, 500);
+					});
+				}
+				//重排
+				function reset() {
+					var arr = [];
+					var ocontainer = $(".container").find(".down");
+					for (var i = 0; i < ocontainer.size(); i++) {
+						arr.push(ocontainer[i].innerHTML);
+					}
+					arr.sort(function() {
+						return 0.5 - Math.random();
+					});
+					console.log(arr)
+					for (var j = 0; j < arr.length; j++) {
+						ocontainer[j].innerHTML = arr[j];
+					}
+					roate();
+				}
+			}
+		</script>
+	</body>
+
+</html>

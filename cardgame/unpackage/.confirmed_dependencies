@@ -1,0 +1,9 @@
+{
+	"index.html": {
+		"resources": [
+			"img/back002_03.jpg",
+			"js/jquery.min.js",
+			"img/back_01_03.jpg"
+		]
+	}
+}
